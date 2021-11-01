@@ -18,6 +18,7 @@
       {{#if (feature-flag 'filter')}}
         <Rose::Toolbar>
           <Rose::Form>
+            {{{log this.selectedItems 'llllll'}}}
             <Rose::Dropdown
               @text={{t 'form.status.label'}}
               @ignoreClickInside={{true}}
@@ -26,7 +27,7 @@
               <Rose::Form::Checkbox::Group
                 @items={{this.availableSessions}}
                 @selectedItems={{this.selectedItems}}
-                @onChange={{this.checkboxGroupChanged}}
+                @onChange={{route-action 'checkboxGroupChanged'}}
                 as |group|
               >
                 <dropdown.item>

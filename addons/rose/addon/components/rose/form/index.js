@@ -48,6 +48,7 @@ export default class RoseFormComponent extends Component {
    */
   @action
   handleSubmit(e) {
+    console.log('submit form handlesubmit')
     e.preventDefault();
     e.stopPropagation();
     const submitResult = this.args.onSubmit();
