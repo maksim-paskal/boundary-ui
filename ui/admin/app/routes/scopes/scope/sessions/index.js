@@ -1,9 +1,11 @@
 import Route from '@ember/routing/route';
+import { options } from 'api/models/session';
 
 export default class ScopesScopeSessionsIndexRoute extends Route {
   setupController(controller) {
-    const availableSessions = this.store.peekAll('session');
+    const availableSessions = options;
     super.setupController(...arguments);
     controller.setProperties({ availableSessions });
   }
+
 }

@@ -24,6 +24,7 @@
                 @ignoreClickInside={{true}}
                 as |dropdown|
               >
+              {{{log this.availableSessions 'ppp'}}}
                 <Rose::Form::Checkbox::Group
                   @items={{this.availableSessions}}
                   @selectedItems={{this.selectedItems}}

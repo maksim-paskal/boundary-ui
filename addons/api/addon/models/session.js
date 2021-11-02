@@ -7,6 +7,19 @@ import { A } from '@ember/array';
 /**
  *
  */
+
+/**
+ * Enum options per auth method type and field.
+ */
+ export const options = {
+  status: [
+    'active',
+    'pending',
+    'cancelling',
+    'terminated'
+  ]
+};
+
 class SessionCredential {
   // =classes
 
@@ -18,6 +31,7 @@ class SessionCredential {
     name;
     description;
     type;
+
 
     constructor(id, name, description, type) {
       this.id = id;
@@ -120,6 +134,7 @@ export default class SessionModel extends GeneratedSessionModel {
   get target() {
     return this.store.peekRecord('target', this.target_id);
   }
+
 
   // =methods
 
