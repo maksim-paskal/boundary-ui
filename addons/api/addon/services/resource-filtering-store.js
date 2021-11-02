@@ -45,6 +45,7 @@ export default class ResourceFilteringStoreService extends Service {
   @service store;
 
   queryBy(modelName, resourceParams, resourceFilters) {
+    console.log(modelName, 'MODEL NAMEEEE')
     const filterQuery = new ResourceFilters().buildQuery(resourceFilters);
     // Apply filters to store query when available
     if (filterQuery) resourceParams.filter = filterQuery;

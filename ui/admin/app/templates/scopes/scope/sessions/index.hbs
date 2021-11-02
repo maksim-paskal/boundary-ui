@@ -42,6 +42,9 @@
             </section>
           </Rose::Form>
         </Rose::Toolbar>
+        <Rose::Button @style='primary' {{on 'click' this.clearSelected}}>
+          Remove Filters
+        </Rose::Button>
       {{/if}}
 
       <Rose::Table as |table|>

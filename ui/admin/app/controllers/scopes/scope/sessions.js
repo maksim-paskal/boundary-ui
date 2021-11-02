@@ -7,13 +7,8 @@ export default class ScopesScopeSessionsController extends Controller {
   // =services
 
   @service intl;
-
-  // @tracked selectedItems;
-  // queryParams = ['status'];
-  // @tracked status;
-  
   // =attributes
-
+  queryParams = ['status'];
   /**
    * Translated roles breadcrumb
    * @type {string}
@@ -21,5 +16,4 @@ export default class ScopesScopeSessionsController extends Controller {
   get breadCrumb() {
     return this.intl.t('resources.session.title_plural');
   }
-
 }

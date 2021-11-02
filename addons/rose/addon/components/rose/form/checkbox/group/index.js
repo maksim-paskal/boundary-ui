@@ -22,19 +22,15 @@ export default class RoseFormCheckboxGroupComponent extends Component {
    */
   @action
   toggleItem(item) {
-    console.log(this.args.onChange, 'ARGUMENTSSSS');
-    console.log('STEP2', item, 'itemmmmmm', this.args.selectedItems, 'selected ITEMS args');
     const selectedItems = this.args.selectedItems || [];
     const currentItems = [...selectedItems];
-    console.log('STEP4')
-    console.log(currentItems, 'curent ITEMS')
+    console.log(currentItems, 'CURRENT ITEMS==')
     if (currentItems.includes(item)) {
       const i = currentItems.indexOf(item);
       currentItems.splice(i, 1);
     } else {
       currentItems.push(item);
     }
-    console.log('STEP3')
     if (this.args.onChange) this.args.onChange(currentItems);
   }
 }
