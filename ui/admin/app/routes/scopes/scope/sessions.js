@@ -112,6 +112,7 @@ export default class ScopesScopeSessionsRoute extends Route {
   @action
   async filterSession(selected) { 
     this.selectedItems = [...selected];
+    console.log(this.selectedItems, 'selected ITEMSSS===')
     //access this.selectedItems(sessionModel) to send as queryparams
   }
 }
