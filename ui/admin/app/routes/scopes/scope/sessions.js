@@ -109,4 +109,9 @@ export default class ScopesScopeSessionsRoute extends Route {
     await session.cancelSession();
   }
 
+  @action
+  async filterSession(selected) { 
+    this.selectedItems = [...selected];
+    //access this.selectedItems(sessionModel) to send as queryparams
+  }
 }
