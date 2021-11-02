@@ -59,15 +59,12 @@ export default class ScopesScopeSessionsRoute extends Route {
    */
   async model() {    
     const { id: scope_id } = this.modelFor('scopes.scope');
-    const sessions = await this.store.query('session', { scope_id });
-
-
-
+    // const sessions = await this.store.query('session', { scope_id });
     //add filter logic here..
 
-  //  const sessions=  await this.queryBy('session', { scope_id },
-  //     { status: ['pending', 'terminated' ], target: ['s_U5EoFe4Jba']}
-  //    );
+   const sessions=  await this.resourceFilteringStore.queryBy('session', { scope_id },
+      { status: ['active', 'pending', 'terminated' ], target_id: ['s_U5EoFe4Jba']}
+     );
      console.log(sessions, 'session story qquery after')
     const sessionAggregates = await all(
       sessions.map(session => hash({
@@ -127,10 +124,9 @@ export default class ScopesScopeSessionsRoute extends Route {
 
   @action
   async filterStatus(selected) { 
-    console.log(selected, 'seeelellelelelelel');
     this.selectedItems = [...selected];
     console.log('FILTERSTATUS', this.selectedItems);
-    //how to access sessionModel data? 
+    //access sessionModel data? 
     await this.transitionTo('scopes.scope.sessions', {
     queryParams: { status: 'active' },
     });

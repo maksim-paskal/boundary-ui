@@ -49,6 +49,7 @@ export default class ResourceFilteringStoreService extends Service {
     const filterQuery = new ResourceFilters().buildQuery(resourceFilters);
     // Apply filters to store query when available
     if (filterQuery) resourceParams.filter = filterQuery;
+    console.log(filterQuery, 'filterQuery')
     return this.store.query(modelName, resourceParams);
   }
 }
