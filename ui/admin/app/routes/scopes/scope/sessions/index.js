@@ -3,9 +3,15 @@ import { options } from 'api/models/session';
 
 export default class ScopesScopeSessionsIndexRoute extends Route {
   setupController(controller) {
-    const availableSessions = options;
-    super.setupController(...arguments);
-    controller.setProperties({ availableSessions });
+    const type = this.controllerFor('scopes.scope.sessions')['filter-type'];
+    controller.setProperties({
+      scopeModel,
+      filters: {
+        type: {
+          items: ['status'],
+          selectedItems: type ? JSON.parse(type) : null
+        }
+      }
+    });
   }
-
 }

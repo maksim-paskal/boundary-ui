@@ -26,9 +26,9 @@
               >
               {{{log this.availableSessions 'ppp'}}}
                 <Rose::Form::Checkbox::Group
-                  @items={{this.availableSessions}}
-                  @selectedItems={{this.selectedItems}}
-                  @onChange={{this.checkboxGroupChanged}}
+                  @items={{this.filters.type.items}}
+                  @selectedItems={{this.filters.type.items}}
+                  @onChange={{route-action 'filterBy' 'type'}}
                   as |group|
                 >
                   <dropdown.item>
