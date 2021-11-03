@@ -13,6 +13,19 @@ export default class ScopesScopeAuthMethodsRoute extends Route {
   @service session;
   @service can;
 
+  // =queryParams
+
+  queryParams = {
+    'filter-type': {
+      refreshModel: true,
+      replace: true
+    },
+    'filter-is_primary': {
+      refreshModel: true,
+      replace: true
+    }
+  };
+
   // =methods
 
   /**
@@ -184,5 +197,12 @@ export default class ScopesScopeAuthMethodsRoute extends Route {
     const array = authMethod.attributes.account_claim_maps;
     const value = { from, to };
     array.addObject(value);
+  }
+
+  @action
+  filterBy(field, value) {
+    const queryParams = {};
+    queryParams[`filter-${field}`] = JSON.stringify(value);
+    this.transitionTo({ queryParams });
   }
 }
