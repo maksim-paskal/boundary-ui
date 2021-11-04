@@ -18,7 +18,6 @@ export default class IndexController extends Controller {
 
   @action
   checkboxGroupChanged(selected) {
-    console.log(selected, 'selecet fumy')
     this.selectedItems = [...selected];
   }
 

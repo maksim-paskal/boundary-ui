@@ -24,7 +24,6 @@ export default class RoseFormCheckboxGroupComponent extends Component {
   toggleItem(item) {
     const selectedItems = this.args.selectedItems || [];
     const currentItems = [...selectedItems];
-    console.log(currentItems, 'CURRENT ITEMS==')
     if (currentItems.includes(item)) {
       const i = currentItems.indexOf(item);
       currentItems.splice(i, 1);

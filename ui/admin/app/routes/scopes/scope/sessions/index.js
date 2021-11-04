@@ -1,17 +1,19 @@
 import Route from '@ember/routing/route';
-import { options } from 'api/models/session';
+import { setupFilters } from '../../../utils/setupFilters';
 
 export default class ScopesScopeSessionsIndexRoute extends Route {
   setupController(controller) {
-    const type = this.controllerFor('scopes.scope.sessions')['filter-type'];
-    controller.setProperties({
-      scopeModel,
-      filters: {
-        type: {
-          items: ['status'],
-          selectedItems: type ? JSON.parse(type) : null
-        }
+  super.setupController(...arguments);
+  const scopeModel = this.modelFor('scopes.scope');
+  const route = 'scopes.scope.sessions'
+  controller.setProperties({
+    scopeModel,
+     filters: {
+      status: {
+        items: ['active', 'pending', 'terminated', 'cancelling'],
+        selectedItems: setupFilters(this, route,'status')
       }
-    });
-  }
+    }
+  });
+}
 }

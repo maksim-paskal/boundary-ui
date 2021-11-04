@@ -21,8 +21,9 @@ export default class ScopesScopeSessionsRoute extends Route {
 
   // // =attributes
   queryParams = {
-    status: {
+    'filter-status': {
       refreshModel: true,
+      replace: true
     },
   };
   /**
@@ -59,12 +60,12 @@ export default class ScopesScopeSessionsRoute extends Route {
    */
   async model() {    
     const { id: scope_id } = this.modelFor('scopes.scope');
-    // const sessions = await this.store.query('session', { scope_id });
+    const sessions = await this.store.query('session', { scope_id });
     //add filter logic here..
 
-   const sessions=  await this.resourceFilteringStore.queryBy('session', { scope_id },
-      { status: ['active', 'pending', 'terminated' ], target_id: ['s_U5EoFe4Jba']}
-     );
+  //  const sessions=  await this.resourceFilteringStore.queryBy('session', { scope_id },
+  //     { status: ['active', 'pending', 'terminated' ], target_id: ['s_U5EoFe4Jba']}
+  //    );
      console.log(sessions, 'session story qquery after')
     const sessionAggregates = await all(
       sessions.map(session => hash({
@@ -121,14 +122,10 @@ export default class ScopesScopeSessionsRoute extends Route {
     await session.cancelSession();
   }
 
-
   @action
-  async filterStatus(selected) { 
-    this.selectedItems = [...selected];
-    console.log('FILTERSTATUS', this.selectedItems);
-    //access sessionModel data? 
-    await this.transitionTo('scopes.scope.sessions', {
-    queryParams: { status: 'active' },
-    });
+  filterBy(field, value) {
+    const queryParams = {};
+    queryParams[`filter-${field}`] = JSON.stringify(value);
+    this.transitionTo({ queryParams });
   }
 }

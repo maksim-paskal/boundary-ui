@@ -8,18 +8,4 @@ export default class ScopesScopeSessionsIndexController extends Controller {
 
   @service intl;
 
-  @tracked selectedItems = [];
-
-  @action
-  async checkboxGroupChanged(selected) {
-    this.selectedItems = [...selected];
-    console.log(this.selectedItems, 'checkboxGroupChanged controleer');
-    this.send('filterStatus', this.selectedItems);
-  }
-
-  @action
-  clearSelected() {
-    this.selectedItems = [];
-    console.log(this.selectedItems, 'th?????');
-  }
 }

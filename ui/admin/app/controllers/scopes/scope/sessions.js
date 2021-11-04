@@ -8,7 +8,6 @@ export default class ScopesScopeSessionsController extends Controller {
 
   @service intl;
   // =attributes
-  queryParams = ['status'];
   /**
    * Translated roles breadcrumb
    * @type {string}
