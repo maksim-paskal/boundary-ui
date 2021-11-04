@@ -8,4 +8,5 @@ export default class ScopesScopeSessionsIndexController extends Controller {
 
   @service intl;
 
+  @tracked defaultFilters = ['active', 'pending'];
 }

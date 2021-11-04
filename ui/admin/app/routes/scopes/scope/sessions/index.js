@@ -6,12 +6,14 @@ export default class ScopesScopeSessionsIndexRoute extends Route {
   super.setupController(...arguments);
   const scopeModel = this.modelFor('scopes.scope');
   const route = 'scopes.scope.sessions'
+  //const defaultValues = ['active', 'pending'];
   controller.setProperties({
     scopeModel,
+    //defaultValues,
      filters: {
       status: {
         items: ['active', 'pending', 'terminated', 'cancelling'],
-        selectedItems: setupFilters(this, route,'status')
+        selectedItems: setupFilters(this, route, 'status')
       }
     }
   });

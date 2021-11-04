@@ -9,7 +9,7 @@ import config from '../../../config/environment';
  import { tracked } from '@glimmer/tracking';
 
 const POLL_TIMEOUT_SECONDS = config.sessionPollingTimeoutSeconds;
-
+const DEFAULT_FILTERS = ['active', 'pending'];
 export default class ScopesScopeSessionsRoute extends Route {
 
   // =services
@@ -23,7 +23,7 @@ export default class ScopesScopeSessionsRoute extends Route {
   queryParams = {
     'filter-status': {
       refreshModel: true,
-      replace: true
+     
     },
   };
   /**
@@ -58,16 +58,21 @@ export default class ScopesScopeSessionsRoute extends Route {
    * an array of objects containing their associated users and targets.
    * @return {Promise{[{session: SessionModel, user: UserModel, target: TargetModel}]}}
    */
-  async model() {    
-    const { id: scope_id } = this.modelFor('scopes.scope');
-    const sessions = await this.store.query('session', { scope_id });
-    //add filter logic here..
+  async model(params) {   
 
-  //  const sessions=  await this.resourceFilteringStore.queryBy('session', { scope_id },
-  //     { status: ['active', 'pending', 'terminated' ], target_id: ['s_U5EoFe4Jba']}
-  //    );
-     console.log(sessions, 'session story qquery after')
-    const sessionAggregates = await all(
+    params['filter-status'] = JSON.stringify(DEFAULT_FILTERS);
+    const { id: scope_id } = this.modelFor('scopes.scope');
+    let sessions;
+    if (params['filter-status'] !== undefined) {
+     const data = params['filter-status']
+      sessions = await this.resourceFilteringStore.queryBy('session', { scope_id },
+    { status: JSON.parse(data)}
+   );
+  } else {
+     sessions = await this.store.query('session', { scope_id });
+
+  }
+      const sessionAggregates = await all(
       sessions.map(session => hash({
         session,
         user: session.user_id
@@ -88,11 +93,11 @@ export default class ScopesScopeSessionsRoute extends Route {
     let sortedSessionAggregates =
       A(sessionAggregates).sortBy('session.created_time').reverse();
     // Then move active sessions to the top...
-    sortedSessionAggregates = [
-      ...sortedSessionAggregates.filter((aggregate) => aggregate.session.status === 'active'),
-      ...sortedSessionAggregates.filter((aggregate) => aggregate.session.status !== 'active'),
-    ];
-    return sortedSessionAggregates;
+    // sortedSessionAggregates = [
+    //   ...sortedSessionAggregates.filter((aggregate) => aggregate.session.status === 'active'),
+    //   ...sortedSessionAggregates.filter((aggregate) => aggregate.session.status !== 'active'),
+    // ];
+    return sessionAggregates;
   }
 
   /**
@@ -124,6 +129,13 @@ export default class ScopesScopeSessionsRoute extends Route {
 
   @action
   filterBy(field, value) {
+    console.log('in here', field, value)
+    //preselect default here..
+    const selectedArr = [];
+    if (selectedArr.indexOf(value) === -1) {
+      selectedArr.push(value)
+    }  
+    console.log(selectedArr, 'seeses')
     const queryParams = {};
     queryParams[`filter-${field}`] = JSON.stringify(value);
     this.transitionTo({ queryParams });

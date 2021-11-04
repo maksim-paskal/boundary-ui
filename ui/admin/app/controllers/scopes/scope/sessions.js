@@ -15,4 +15,5 @@ export default class ScopesScopeSessionsController extends Controller {
   get breadCrumb() {
     return this.intl.t('resources.session.title_plural');
   }
+
 }

@@ -15,6 +15,7 @@
   <page.body>
 
     {{#if @model}}
+    {{{log this.defaultFilters 'ppp'}}}
       {{#if (feature-flag 'filter')}}
         <Rose::Toolbar>
           <Rose::Form>
@@ -24,19 +25,19 @@
                 @ignoreClickInside={{true}}
                 as |dropdown|
               >
-              {{{log this.filters.status}}}
                 <Rose::Form::Checkbox::Group
                   @name='status'
                   @items={{this.filters.status.items}}
                   @selectedItems={{this.filters.status.selectedItems}}
                   @onChange={{route-action 'filterBy' 'status'}}
+                  @defaultItems={{this.defaultFilters}}
                   as |group|
                 >
                   <dropdown.item>
                     <group.checkbox
-                      @checked={{group.item.isCancelable}}
                       @label={{group.item}}
                       value={{group.item}}
+                      @checked={{includes group.item this.defaultFilters }}
                     />
                   </dropdown.item>
                 </Rose::Form::Checkbox::Group>

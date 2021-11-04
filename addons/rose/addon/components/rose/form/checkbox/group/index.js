@@ -21,9 +21,10 @@ export default class RoseFormCheckboxGroupComponent extends Component {
    *   - or added to the array, if it was not already present
    */
   @action
-  toggleItem(item) {
+  toggleItem(item, defaultItems) {
+    console.log(item, 'togglinggg', defaultItems)
     const selectedItems = this.args.selectedItems || [];
-    const currentItems = [...selectedItems];
+    const currentItems = [...selectedItems, ...defaultItems];
     if (currentItems.includes(item)) {
       const i = currentItems.indexOf(item);
       currentItems.splice(i, 1);

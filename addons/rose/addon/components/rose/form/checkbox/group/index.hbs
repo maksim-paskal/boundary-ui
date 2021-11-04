@@ -5,8 +5,9 @@
       name=@name
       disabled=@disabled
       inline=@inline
+      defaultFilters=@defaultItems
       checked=(includes item @selectedItems)
-      onChange=(fn this.toggleItem item)
+      onChange=(fn this.toggleItem item @defaultItems)
     )
   )}}
 {{/each}}

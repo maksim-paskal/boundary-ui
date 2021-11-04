@@ -11,14 +11,6 @@ import { A } from '@ember/array';
 /**
  * Enum options per auth method type and field.
  */
- export const options = {
-  status: [
-    'active',
-    'pending',
-    'cancelling',
-    'terminated'
-  ]
-};
 
 class SessionCredential {
   // =classes
